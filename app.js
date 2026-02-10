@@ -5,15 +5,15 @@
 
 // ===== STATE MANAGEMENT =====
 const AppState = {
-  currentPage: 'home',
-  activeCategory: 'All',
+  currentPage: "home",
+  activeCategory: "All",
   selectedProjectId: null,
   completedMissions: [],
   activeAccordion: null,
   chatOpen: false,
 
   // Toggle mission completion
-  toggleMission: function(missionId) {
+  toggleMission: function (missionId) {
     const index = this.completedMissions.indexOf(missionId);
     if (index > -1) {
       this.completedMissions.splice(index, 1);
@@ -24,45 +24,45 @@ const AppState = {
   },
 
   // Set active category for projects
-  setCategory: function(category) {
+  setCategory: function (category) {
     this.activeCategory = category;
     AppRouter.render();
   },
 
   // Select a project for detail view
-  selectProject: function(projectId) {
+  selectProject: function (projectId) {
     this.selectedProjectId = projectId;
     AppRouter.render();
   },
 
   // Toggle accordion in resources
-  toggleAccordion: function(index) {
+  toggleAccordion: function (index) {
     this.activeAccordion = this.activeAccordion === index ? null : index;
-    AppRouter.render();
+    AppRouter.render(true); // Pass true to preserve scroll position
   },
 
   // Toggle chatbot
-  toggleChat: function() {
+  toggleChat: function () {
     this.chatOpen = !this.chatOpen;
-    const chatWindow = document.getElementById('chat-window');
+    const chatWindow = document.getElementById("chat-window");
     if (chatWindow) {
-      chatWindow.style.display = this.chatOpen ? 'flex' : 'none';
+      chatWindow.style.display = this.chatOpen ? "flex" : "none";
     }
-  }
+  },
 };
 
 // ===== ROUTER =====
 const AppRouter = {
   // Navigate to a page
-  navigate: function(page) {
+  navigate: function (page) {
     AppState.currentPage = page;
     AppState.selectedProjectId = null; // Reset project selection
-    
+
     // Update active nav item
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.classList.remove('active');
-      if (item.getAttribute('data-page') === page) {
-        item.classList.add('active');
+    document.querySelectorAll(".nav-item").forEach((item) => {
+      item.classList.remove("active");
+      if (item.getAttribute("data-page") === page) {
+        item.classList.add("active");
       }
     });
 
@@ -70,37 +70,40 @@ const AppRouter = {
   },
 
   // Render the current page
-  render: function() {
-    const appContent = document.getElementById('app-content');
+  render: function (preserveScroll = false) {
+    const appContent = document.getElementById("app-content");
     if (!appContent) return;
 
-    let html = '';
+    // Save scroll position if needed
+    const scrollPosition = preserveScroll ? window.scrollY : 0;
+
+    let html = "";
 
     // Check if we're viewing a project detail
-    if (AppState.currentPage === 'projects' && AppState.selectedProjectId) {
+    if (AppState.currentPage === "projects" && AppState.selectedProjectId) {
       html = Components.renderProjectDetail(AppState.selectedProjectId);
     } else {
       // Render normal pages
       switch (AppState.currentPage) {
-        case 'home':
+        case "home":
           html = Components.renderHomepage();
           break;
-        case 'dashboard':
+        case "dashboard":
           html = Components.renderDashboard();
           break;
-        case 'projects':
+        case "projects":
           html = Components.renderProjects();
           break;
-        case 'organization':
+        case "organization":
           html = Components.renderOrganization();
           break;
-        case 'resources':
+        case "resources":
           html = Components.renderResources();
           break;
-        case 'links':
+        case "links":
           html = Components.renderLinks();
           break;
-        case 'map':
+        case "map":
           html = Components.renderMapExplorer();
           break;
         default:
@@ -110,159 +113,184 @@ const AppRouter = {
 
     appContent.innerHTML = html;
 
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+    // Scroll to top only when navigating, preserve scroll when toggling
+    if (preserveScroll) {
+      window.scrollTo({ top: scrollPosition, behavior: "instant" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  },
 };
 
 // ===== SEARCH FUNCTIONALITY =====
 const SearchHandler = {
-  performSearch: function() {
-    const searchInput = document.getElementById('search-input');
-    const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
-    
+  performSearch: function () {
+    const searchInput = document.getElementById("search-input");
+    const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
     if (!query) return;
 
     // Search through projects
-    const results = AppData.projects.filter(project => 
-      project.name.toLowerCase().includes(query) ||
-      project.description.toLowerCase().includes(query) ||
-      project.location.toLowerCase().includes(query) ||
-      project.type.toLowerCase().includes(query)
+    const results = AppData.projects.filter(
+      (project) =>
+        project.name.toLowerCase().includes(query) ||
+        project.description.toLowerCase().includes(query) ||
+        project.location.toLowerCase().includes(query) ||
+        project.type.toLowerCase().includes(query),
     );
 
     // Show results (for now, navigate to projects)
     if (results.length > 0) {
-      AppState.activeCategory = 'All';
-      AppRouter.navigate('projects');
+      AppState.activeCategory = "All";
+      AppRouter.navigate("projects");
     }
 
     // Clear search
-    if (searchInput) searchInput.value = '';
+    if (searchInput) searchInput.value = "";
   },
 
-  handleSearchKeyPress: function(event) {
-    if (event.key === 'Enter') {
+  handleSearchKeyPress: function (event) {
+    if (event.key === "Enter") {
       this.performSearch();
     }
-  }
+  },
 };
 
 // ===== CHATBOT FUNCTIONALITY =====
 const ChatBot = {
-  sendMessage: function() {
-    const input = document.getElementById('chat-input');
-    const messages = document.getElementById('chat-messages');
-    
+  sendMessage: function () {
+    const input = document.getElementById("chat-input");
+    const messages = document.getElementById("chat-messages");
+
     if (!input || !messages) return;
-    
+
     const message = input.value.trim();
     if (!message) return;
 
     // Add user message
-    const userMsg = document.createElement('div');
-    userMsg.className = 'chat-message user-message';
+    const userMsg = document.createElement("div");
+    userMsg.className = "chat-message user-message";
     userMsg.textContent = message;
     messages.appendChild(userMsg);
 
     // Clear input
-    input.value = '';
+    input.value = "";
 
     // Scroll to bottom
     messages.scrollTop = messages.scrollHeight;
 
     // Simulate bot response
     setTimeout(() => {
-      const botMsg = document.createElement('div');
-      botMsg.className = 'chat-message bot-message';
+      const botMsg = document.createElement("div");
+      botMsg.className = "chat-message bot-message";
       botMsg.innerHTML = this.getBotResponse(message);
       messages.appendChild(botMsg);
       messages.scrollTop = messages.scrollHeight;
     }, 1000);
   },
 
-  getBotResponse: function(message) {
+  getBotResponse: function (message) {
     const lowerMsg = message.toLowerCase();
-    
-    if (lowerMsg.includes('project') || lowerMsg.includes('property')) {
-      return 'I can help you explore our projects! Check out the <strong>Projects</strong> page for detailed information about our developments.';
-    } else if (lowerMsg.includes('contact') || lowerMsg.includes('team') || lowerMsg.includes('who')) {
-      return 'Visit the <strong>Organization</strong> page to see our team structure and contact information.';
-    } else if (lowerMsg.includes('permit') || lowerMsg.includes('document') || lowerMsg.includes('requirement')) {
-      return 'For permit information and requirements, please visit the <strong>Resources</strong> page.';
-    } else if (lowerMsg.includes('link') || lowerMsg.includes('system') || lowerMsg.includes('portal')) {
-      return 'Quick access links are available on the <strong>Links</strong> page.';
-    } else if (lowerMsg.includes('map') || lowerMsg.includes('tour') || lowerMsg.includes('virtual')) {
-      return 'Explore our interactive virtual tour on the <strong>Map Explorer</strong> page!';
+
+    if (lowerMsg.includes("project") || lowerMsg.includes("property")) {
+      return "I can help you explore our projects! Check out the <strong>Projects</strong> page for detailed information about our developments.";
+    } else if (
+      lowerMsg.includes("contact") ||
+      lowerMsg.includes("team") ||
+      lowerMsg.includes("who")
+    ) {
+      return "Visit the <strong>Organization</strong> page to see our team structure and contact information.";
+    } else if (
+      lowerMsg.includes("permit") ||
+      lowerMsg.includes("document") ||
+      lowerMsg.includes("requirement")
+    ) {
+      return "For permit information and requirements, please visit the <strong>Resources</strong> page.";
+    } else if (
+      lowerMsg.includes("link") ||
+      lowerMsg.includes("system") ||
+      lowerMsg.includes("portal")
+    ) {
+      return "Quick access links are available on the <strong>Links</strong> page.";
+    } else if (
+      lowerMsg.includes("map") ||
+      lowerMsg.includes("tour") ||
+      lowerMsg.includes("virtual")
+    ) {
+      return "Explore our interactive virtual tour on the <strong>Map Explorer</strong> page!";
     } else {
-      return 'Hello! I\'m the Filinvest Knowledge Hub assistant. I can help you navigate our projects, team, resources, and more. What would you like to know?';
+      return "Hello! I'm the Filinvest Knowledge Hub assistant. I can help you navigate our projects, team, resources, and more. What would you like to know?";
     }
   },
 
-  handleChatKeyPress: function(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+  handleChatKeyPress: function (event) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       this.sendMessage();
     }
-  }
+  },
 };
 
 // ===== INITIALIZATION =====
 function initializeApp() {
-  console.log('🚀 Initializing AFAIK Knowledge Hub...');
-  
+  console.log("🚀 Initializing AFAIK Knowledge Hub...");
+
   // Set up navigation event listeners
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', function(e) {
+  document.querySelectorAll(".nav-item").forEach((item) => {
+    item.addEventListener("click", function (e) {
       e.preventDefault();
-      const page = this.getAttribute('data-page');
+      const page = this.getAttribute("data-page");
       AppRouter.navigate(page);
     });
   });
 
   // Set up search functionality
-  const searchBtn = document.getElementById('search-btn');
-  const searchInput = document.getElementById('search-input');
-  
+  const searchBtn = document.getElementById("search-btn");
+  const searchInput = document.getElementById("search-input");
+
   if (searchBtn) {
-    searchBtn.addEventListener('click', () => SearchHandler.performSearch());
+    searchBtn.addEventListener("click", () => SearchHandler.performSearch());
   }
-  
+
   if (searchInput) {
-    searchInput.addEventListener('keypress', (e) => SearchHandler.handleSearchKeyPress(e));
+    searchInput.addEventListener("keypress", (e) =>
+      SearchHandler.handleSearchKeyPress(e),
+    );
   }
 
   // Set up chatbot
-  const chatToggle = document.getElementById('chat-toggle');
-  const chatClose = document.getElementById('chat-close');
-  const chatSend = document.getElementById('chat-send');
-  const chatInput = document.getElementById('chat-input');
+  const chatToggle = document.getElementById("chat-toggle");
+  const chatClose = document.getElementById("chat-close");
+  const chatSend = document.getElementById("chat-send");
+  const chatInput = document.getElementById("chat-input");
 
   if (chatToggle) {
-    chatToggle.addEventListener('click', () => AppState.toggleChat());
+    chatToggle.addEventListener("click", () => AppState.toggleChat());
   }
 
   if (chatClose) {
-    chatClose.addEventListener('click', () => AppState.toggleChat());
+    chatClose.addEventListener("click", () => AppState.toggleChat());
   }
 
   if (chatSend) {
-    chatSend.addEventListener('click', () => ChatBot.sendMessage());
+    chatSend.addEventListener("click", () => ChatBot.sendMessage());
   }
 
   if (chatInput) {
-    chatInput.addEventListener('keypress', (e) => ChatBot.handleChatKeyPress(e));
+    chatInput.addEventListener("keypress", (e) =>
+      ChatBot.handleChatKeyPress(e),
+    );
   }
 
   // Initial render
   AppRouter.render();
 
-  console.log('✅ App initialized successfully!');
+  console.log("✅ App initialized successfully!");
 }
 
 // Wait for DOM to be ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeApp);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeApp);
 } else {
   initializeApp();
 }

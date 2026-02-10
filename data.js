@@ -594,9 +594,14 @@ const AppData = {
           {
             title: "HOW TO GET",
             steps: [
-              "Obtain the Event Permit Form from Filinvest City Events or Estate Management Office",
+              "Can be downloaded via email",
+              "Can get hardcopies at lobby guard 6F Vector One Building, Northgate Cyberzone",
               "Submit the application at least 2–3 weeks before the event",
             ],
+          },
+          {
+            title: "APPROVAL TIME",
+            steps: ["One to two weeks, depending on availability of signatory"],
           },
           {
             title: "COMMON REQUIREMENTS",
