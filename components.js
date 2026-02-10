@@ -8,96 +8,95 @@ const Components = {
    * Render the Welcome/Homepage
    */
   renderHomepage: () => {
+    // Resources for left column
+    const resourceItems = AppData.resources.permits.slice(0, 4).map((r) => ({
+      icon: Icons.fileText,
+      title: r.title,
+      color: r.color.split(" ")[0],
+      id: r.id,
+    }));
+
     return `
       <div class="homepage-container">
-        <!-- Hero Section -->
-        <section class="hero-section">
-          <div class="hero-overlay"></div>
-          <div class="hero-content">
-            <div class="hero-text">
-              <div class="hero-logo-section">
-                <div class="hero-logo">
-                  <img src="https://logopond.com/logos/f6fef3fe879afd5a73159b90df0d65fa.png" alt="AFAIK Logo" />
-                </div>
-                <div>
-                  <h3>Filinvest Alabang Incorporated</h3>
-                  <p>Building Dreams, Creating Communities</p>
-                </div>
-              </div>
-              <h1 class="hero-title">Welcome to<br>FAI Knowledge Base</h1>
-              <p class="hero-subtitle">Your central resource for projects, insights, and organizational information</p>
-              <p class="hero-description">Explore our comprehensive database of property developments, access vital resources, and connect with our team—all in one place.</p>
-              
-              <div class="hero-buttons">
-                <button onclick="AppRouter.navigate('projects')" class="btn-primary">
-                  ${Icons.building}
-                  <span>Explore Projects</span>
-                </button>
-                <button onclick="AppRouter.navigate('organization')" class="btn-secondary">
-                  <span>Our Team</span>
-                  ${Icons.chevronRight}
-                </button>
-              </div>
-            </div>
+        <!-- Hero Banner (extends behind nav) -->
+        <section class="hero-banner">
+          <div class="hero-banner-overlay"></div>
+          <div class="hero-banner-content">
+            <h1 class="hero-banner-title">Welcome to the<br>Filinvest Knowledge Hub</h1>
+            <button class="hero-search-btn" onclick="SearchHandler.openSearch()">Search</button>
           </div>
         </section>
 
-        <!-- Quick Stats -->
-        <section class="quick-stats">
-          <div class="stat-card">
-            ${Icons.calendar}
-            <div>
-              <div class="stat-value">70</div>
-              <div class="stat-label">Years of Excellence</div>
+        <!-- Three-Column Content -->
+        <section class="home-columns">
+          <!-- Left Column: Resources -->
+          <div class="home-panel glass">
+            <div class="home-panel-header">
+              <h2 class="home-panel-title">Resources</h2>
+              <span class="home-panel-icon">${Icons.fileText}</span>
             </div>
-          </div>
-          <div class="stat-card">
-            ${Icons.building}
-            <div>
-              <div class="stat-value">200+</div>
-              <div class="stat-label">Projects Delivered</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            ${Icons.users}
-            <div>
-              <div class="stat-value">100K+</div>
-              <div class="stat-label">Families Served</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            ${Icons.trophy}
-            <div>
-              <div class="stat-value">25+</div>
-              <div class="stat-label">Awards Received</div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Featured Projects Preview -->
-        <section class="featured-preview">
-          <h2 class="section-title">Featured Projects</h2>
-          <div class="projects-preview-grid">
-            ${AppData.projects
-              .slice(0, 3)
-              .map(
-                (project) => `
-              <div class="preview-card" onclick="AppRouter.navigate('projects')">
-                <div class="preview-image" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa);">
-                  <img src="${project.image}" alt="${project.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-size: 48px;&quot;>🏢</span>';" />
-                </div>
-                <div class="preview-content">
-                  <h3>${project.name}</h3>
-                  <p>${project.description}</p>
-                  <div class="preview-footer">
-                    <span class="badge" style="background: ${project.color};">${project.type}</span>
-                    <button class="btn-link">View Details ${Icons.chevronRight}</button>
+            <div class="home-updates-list">
+              ${resourceItems
+                .map(
+                  (item) => `
+                <div class="home-update-item" onclick="AppRouter.navigate('resources');" style="cursor:pointer;">
+                  <div class="home-update-icon" style="background: ${item.color}15; color: ${item.color};">
+                    ${item.icon}
+                  </div>
+                  <div class="home-update-info">
+                    <span class="home-update-title">${item.title}</span>
                   </div>
                 </div>
-              </div>
-            `,
-              )
-              .join("")}
+              `,
+                )
+                .join("")}
+            </div>
+          </div>
+
+          <!-- Middle Column: Featured Projects -->
+          <div class="home-panel glass">
+            <div class="home-panel-header">
+              <h2 class="home-panel-title">Featured Projects</h2>
+              <span class="home-panel-icon">${Icons.building}</span>
+            </div>
+            <div class="home-projects-list">
+              ${AppData.projects
+                .slice(0, 4)
+                .map(
+                  (project) => `
+                <div class="home-project-row" onclick="AppState.selectProject(${project.id}); AppRouter.navigate('projects');">
+                  <div class="home-project-thumb" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa);">
+                    <img src="${project.image}" alt="${project.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-size:20px&quot;>🏢</span>';" />
+                  </div>
+                  <div class="home-project-info">
+                    <span class="home-project-name">${project.name}</span>
+                    <span class="home-project-loc">${project.location.split(",")[0]}</span>
+                  </div>
+                </div>
+              `,
+                )
+                .join("")}
+            </div>
+          </div>
+
+          <!-- Right Column: Quick Links -->
+          <div class="home-panel glass">
+            <div class="home-panel-header">
+              <h2 class="home-panel-title">Quick Links</h2>
+              <span class="home-panel-icon">${Icons.externalLink}</span>
+            </div>
+            <div class="home-quicklinks-list">
+              ${AppData.links
+                .map(
+                  (link) => `
+                <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="home-quicklink-row">
+                  ${Icons.externalLink}
+                  <span>${link.name}</span>
+                </a>
+              `,
+                )
+                .join("")}
+            </div>
           </div>
         </section>
       </div>
@@ -112,6 +111,8 @@ const Components = {
 
     return `
       <div class="dashboard-page">
+        <div class="page-header-banner"></div>
+
         <!-- Header -->
         <div class="dashboard-header">
           <div class="header-left">
@@ -258,6 +259,7 @@ const Components = {
 
     return `
       <div class="projects-page">
+        <div class="page-header-banner"></div>
         <!-- Category Tabs -->
         <div class="category-tabs glass">
           ${categories
@@ -591,6 +593,7 @@ const Components = {
 
     return `
       <div class="organization-page">
+        <div class="page-header-banner"></div>
         <div class="organization-container glass">
           <div class="org-header">
             <h2>Organization Chart</h2>
@@ -811,6 +814,7 @@ const Components = {
 
     return `
       <div class="resources-page">
+        <div class="page-header-banner"></div>
         <!-- Permits Section -->
         <div class="resources-section glass">
           <h2 class="section-header">Permits Applications</h2>
@@ -882,6 +886,7 @@ const Components = {
 
     return `
       <div class="links-page">
+        <div class="page-header-banner"></div>
         <div class="links-container glass">
           <div class="links-header">
             <h2>Quick Links</h2>
@@ -920,12 +925,13 @@ const Components = {
   renderMapExplorer: () => {
     return `
       <div class="map-explorer-page">
-        <div class="map-header glass">
+        <div class="page-header-banner"></div>
+        <div class="map-toolbar glass">
           <div>
-            <h1>Filinvest City Virtual Tour</h1>
+            <h2>Filinvest City Virtual Tour</h2>
             <p>Map Explorer • Interactive view</p>
           </div>
-          <button onclick="window.open('https://tours.exsight360.com/filinvest/city/index.html', '_blank')" class="btn-primary">
+          <button onclick="window.open('https://tours.exsight360.com/filinvest/city/index.html', '_blank')" class="btn-primary map-toolbar-btn">
             ${Icons.externalLink}
             <span>Open External</span>
           </button>

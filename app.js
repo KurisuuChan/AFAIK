@@ -139,9 +139,12 @@ const AppRouter = {
 
 // ===== SEARCH FUNCTIONALITY =====
 const SearchHandler = {
-  performSearch: function () {
-    const searchInput = document.getElementById("search-input");
-    const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+  performSearch: function (query) {
+    if (!query) {
+      const searchInput = document.getElementById("search-input");
+      query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+    }
+    query = query.trim().toLowerCase();
 
     if (!query) return;
 
@@ -161,7 +164,13 @@ const SearchHandler = {
     }
 
     // Clear search
+    const searchInput = document.getElementById("search-input");
     if (searchInput) searchInput.value = "";
+  },
+
+  openSearch: function () {
+    const query = prompt("Search projects...");
+    if (query) this.performSearch(query);
   },
 
   handleSearchKeyPress: function (event) {
@@ -256,6 +265,11 @@ function initializeApp() {
       e.preventDefault();
       const page = this.getAttribute("data-page");
       AppRouter.navigate(page);
+      // Close mobile hamburger menu if open
+      const navLinks = document.querySelector(".nav-links");
+      const hamburger = document.querySelector(".nav-hamburger");
+      if (navLinks) navLinks.classList.remove("open");
+      if (hamburger) hamburger.classList.remove("active");
     });
   });
 
@@ -264,7 +278,7 @@ function initializeApp() {
   const searchInput = document.getElementById("search-input");
 
   if (searchBtn) {
-    searchBtn.addEventListener("click", () => SearchHandler.performSearch());
+    searchBtn.addEventListener("click", () => SearchHandler.openSearch());
   }
 
   if (searchInput) {
