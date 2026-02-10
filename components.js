@@ -23,7 +23,13 @@ const Components = {
           <div class="hero-banner-overlay"></div>
           <div class="hero-banner-content">
             <h1 class="hero-banner-title">Welcome to the<br>Filinvest Knowledge Hub</h1>
-            <button class="hero-search-btn" onclick="SearchHandler.openSearch()">Search</button>
+            <div class="hero-search-wrap">
+              <div class="hero-search-bar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="hero-search-input" placeholder="Search projects, resources, and more..." autocomplete="off" oninput="SearchHandler.liveSearch(this.value, 'hero-search-results')" onfocus="SearchHandler.onFocus('hero-search-results')" />
+              </div>
+              <div class="search-dropdown" id="hero-search-results"></div>
+            </div>
           </div>
         </section>
 
@@ -64,7 +70,7 @@ const Components = {
                 .slice(0, 4)
                 .map(
                   (project) => `
-                <div class="home-project-row" onclick="AppState.selectProject(${project.id}); AppRouter.navigate('projects');">
+                <div class="home-project-row" onclick="AppRouter.navigate('project-detail', ${project.id});">
                   <div class="home-project-thumb" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa);">
                     <img src="${project.image}" alt="${project.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-size:20px&quot;>🏢</span>';" />
                   </div>
@@ -287,7 +293,7 @@ const Components = {
           ${filteredProjects
             .map(
               (project) => `
-            <div class="project-card glass" onclick="AppState.selectProject(${project.id})">
+            <div class="project-card glass" onclick="AppRouter.navigate('project-detail', ${project.id})">
               <!-- Project Image -->
               <div class="project-image" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa);">
                 <img src="${project.image}" alt="${project.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-size: 48px;&quot;>🏢</span>';" />
@@ -366,9 +372,10 @@ const Components = {
 
     return `
       <div class="project-detail">
+        <div class="page-header-banner"></div>
         <!-- Top Bar: Back Button + Social Links -->
         <div class="detail-top-bar">
-          <button class="btn-back" onclick="AppState.selectProject(null)">
+          <button class="btn-back" onclick="AppRouter.navigate('projects')">
             ${Icons.arrowLeft}
             <span>Back to Projects</span>
           </button>
@@ -596,9 +603,11 @@ const Components = {
         <div class="page-header-banner"></div>
         <div class="organization-container glass">
           <div class="org-header">
-            <h2>Organization Chart</h2>
-            <p>Business Intelligence organization structure</p>
-            <div class="org-count">${AppData.organization.length} contacts</div>
+            <div>
+              <h2>Organization Chart</h2>
+              <p>Business Intelligence organization structure</p>
+            </div>
+            <div class="org-count">${AppData.organization.length} members</div>
           </div>
 
           <div class="org-chart">
@@ -908,6 +917,7 @@ const Components = {
                     ${Icons.externalLink}
                   </div>
                   <p class="link-description">${link.description}</p>
+                  <span class="link-url">${link.url}</span>
                 </div>
               </a>
               `;

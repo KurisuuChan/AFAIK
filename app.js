@@ -68,15 +68,21 @@ const AppState = {
 
 // ===== ROUTER =====
 const AppRouter = {
-  // Navigate to a page
-  navigate: function (page) {
-    AppState.currentPage = page;
-    AppState.selectedProjectId = null; // Reset project selection
+  // Navigate to a page (optional projectId for direct project detail)
+  navigate: function (page, projectId) {
+    if (page === "project-detail" && projectId) {
+      AppState.currentPage = "projects";
+      AppState.selectedProjectId = Number.parseInt(projectId) || projectId;
+    } else {
+      AppState.currentPage = page;
+      AppState.selectedProjectId = null;
+    }
 
     // Update active nav item
+    const activePage = AppState.currentPage;
     document.querySelectorAll(".nav-item").forEach((item) => {
       item.classList.remove("active");
-      if (item.getAttribute("data-page") === page) {
+      if (item.dataset.page === activePage) {
         item.classList.add("active");
       }
     });
@@ -139,38 +145,200 @@ const AppRouter = {
 
 // ===== SEARCH FUNCTIONALITY =====
 const SearchHandler = {
-  performSearch: function (query) {
-    if (!query) {
-      const searchInput = document.getElementById("search-input");
-      query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+  _activeDropdown: null,
+
+  toggleNavSearch: function () {
+    const wrap = document.getElementById("nav-search-wrap");
+    const input = document.getElementById("nav-search-input");
+    if (!wrap) return;
+    const isExpanded = wrap.classList.contains("expanded");
+    if (isExpanded) {
+      wrap.classList.remove("expanded");
+      this.closeDropdown("nav-search-results");
+      if (input) input.value = "";
+    } else {
+      wrap.classList.add("expanded");
+      if (input) setTimeout(() => input.focus(), 50);
     }
-    query = query.trim().toLowerCase();
+  },
 
-    if (!query) return;
-
-    // Search through projects
-    const results = AppData.projects.filter(
-      (project) =>
-        project.name.toLowerCase().includes(query) ||
-        project.description.toLowerCase().includes(query) ||
-        project.location.toLowerCase().includes(query) ||
-        project.type.toLowerCase().includes(query),
-    );
-
-    // Show results (for now, navigate to projects)
-    if (results.length > 0) {
-      AppState.activeCategory = "All";
-      AppRouter.navigate("projects");
+  onFocus: function (dropdownId) {
+    const input =
+      dropdownId === "hero-search-results"
+        ? document.getElementById("hero-search-input")
+        : document.getElementById("nav-search-input");
+    const query = input ? input.value.trim() : "";
+    if (query) {
+      this.liveSearch(query, dropdownId);
     }
-
-    // Clear search
-    const searchInput = document.getElementById("search-input");
-    if (searchInput) searchInput.value = "";
+    // Don't show dropdown when empty - just let them type
   },
 
   openSearch: function () {
-    const query = prompt("Search projects...");
-    if (query) this.performSearch(query);
+    // Focus the hero search if on home, otherwise toggle nav search
+    const heroInput = document.getElementById("hero-search-input");
+    if (heroInput) {
+      heroInput.focus();
+    } else {
+      this.toggleNavSearch();
+    }
+  },
+
+  closeDropdown: function (dropdownId) {
+    const dropdown = document.getElementById(dropdownId);
+    if (dropdown) dropdown.classList.remove("active");
+  },
+
+  closeAllDropdowns: function () {
+    document
+      .querySelectorAll(".search-dropdown")
+      .forEach((d) => d.classList.remove("active"));
+  },
+
+  selectResult: function (action, dropdownId) {
+    action();
+    this.closeAllDropdowns();
+    // Clear inputs
+    const heroInput = document.getElementById("hero-search-input");
+    const navInput = document.getElementById("nav-search-input");
+    const navWrap = document.getElementById("nav-search-wrap");
+    if (heroInput) heroInput.value = "";
+    if (navInput) navInput.value = "";
+    if (navWrap) navWrap.classList.remove("expanded");
+  },
+
+  liveSearch: function (query, dropdownId) {
+    const container = document.getElementById(dropdownId);
+    if (!container) return;
+
+    query = query.trim().toLowerCase();
+    if (!query) {
+      container.classList.remove("active");
+      return;
+    }
+
+    let html = "";
+
+    // Search projects
+    const projectResults = AppData.projects.filter(
+      (p) =>
+        p.name.toLowerCase().includes(query) ||
+        p.description.toLowerCase().includes(query) ||
+        p.location.toLowerCase().includes(query) ||
+        p.type.toLowerCase().includes(query),
+    );
+    if (projectResults.length > 0) {
+      html += '<div class="search-category">Projects</div>';
+      projectResults.slice(0, 4).forEach((p) => {
+        const color = p.color.split(" ")[0];
+        html += `
+          <div class="search-result-item" onmousedown="SearchHandler.selectResult(() => AppRouter.navigate('project-detail', '${p.id}'), '${dropdownId}')">
+            <div class="search-result-icon" style="background: ${color}15;">
+              ${p.image ? `<img src="${p.image}" alt="${p.name}">` : `<span style="color: ${color}">🏗️</span>`}
+            </div>
+            <div class="search-result-info">
+              <div class="search-result-name">${this._highlight(p.name, query)}</div>
+              <div class="search-result-desc">${p.location}</div>
+            </div>
+          </div>`;
+      });
+    }
+
+    // Search links
+    const linkResults = AppData.links.filter(
+      (l) =>
+        l.name.toLowerCase().includes(query) ||
+        l.description.toLowerCase().includes(query),
+    );
+    if (linkResults.length > 0) {
+      html += '<div class="search-category">Links</div>';
+      linkResults.slice(0, 4).forEach((l) => {
+        const color = l.color.split(" ")[0];
+        html += `
+          <div class="search-result-item" onmousedown="SearchHandler.selectResult(() => window.open('${l.url}', '_blank'), '${dropdownId}')">
+            <div class="search-result-icon" style="background: ${color}15; color: ${color};">🔗</div>
+            <div class="search-result-info">
+              <div class="search-result-name">${this._highlight(l.name, query)}</div>
+              <div class="search-result-desc">${l.description}</div>
+            </div>
+          </div>`;
+      });
+    }
+
+    // Search resources
+    let resourceResults = [];
+    ["permits", "events", "lotProjects"].forEach((cat) => {
+      if (AppData.resources[cat]) {
+        AppData.resources[cat].forEach((r) => {
+          if (r.name?.toLowerCase().includes(query)) {
+            resourceResults.push(r);
+          }
+        });
+      }
+    });
+    if (resourceResults.length > 0) {
+      html += '<div class="search-category">Resources</div>';
+      resourceResults.slice(0, 4).forEach((r) => {
+        html += `
+          <div class="search-result-item" onmousedown="SearchHandler.selectResult(() => AppRouter.navigate('resources'), '${dropdownId}')">
+            <div class="search-result-icon" style="background: #f0f9ff; color: #0284c7;">📄</div>
+            <div class="search-result-info">
+              <div class="search-result-name">${this._highlight(r.name, query)}</div>
+              <div class="search-result-desc">Resource</div>
+            </div>
+          </div>`;
+      });
+    }
+
+    // Search pages
+    const pages = [
+      { name: "Home", page: "home", icon: "🏠" },
+      { name: "Analytics Dashboard", page: "dashboard", icon: "📊" },
+      { name: "Projects", page: "projects", icon: "🏗️" },
+      { name: "Map Explorer", page: "map", icon: "🗺️" },
+      { name: "Resources & Documents", page: "resources", icon: "📄" },
+      { name: "Quick Links", page: "links", icon: "🔗" },
+      { name: "Organization Team", page: "organization", icon: "👥" },
+    ];
+    const pageResults = pages.filter((p) =>
+      p.name.toLowerCase().includes(query),
+    );
+    if (pageResults.length > 0) {
+      html += '<div class="search-category">Pages</div>';
+      pageResults.forEach((p) => {
+        html += `
+          <div class="search-result-item" onmousedown="SearchHandler.selectResult(() => AppRouter.navigate('${p.page}'), '${dropdownId}')">
+            <div class="search-result-icon" style="background: #f3f4f6; font-size: 16px;">${p.icon}</div>
+            <div class="search-result-info">
+              <div class="search-result-name">${this._highlight(p.name, query)}</div>
+              <div class="search-result-desc">Go to page</div>
+            </div>
+          </div>`;
+      });
+    }
+
+    if (!html) {
+      html = `<div class="search-empty">No results for "<strong>${query}</strong>"</div>`;
+    }
+
+    container.innerHTML = html;
+    container.classList.add("active");
+  },
+
+  _highlight: function (text, query) {
+    const idx = text.toLowerCase().indexOf(query);
+    if (idx === -1) return text;
+    return (
+      text.substring(0, idx) +
+      "<strong>" +
+      text.substring(idx, idx + query.length) +
+      "</strong>" +
+      text.substring(idx + query.length)
+    );
+  },
+
+  performSearch: function () {
+    this.openSearch();
   },
 
   handleSearchKeyPress: function (event) {
@@ -263,7 +431,7 @@ function initializeApp() {
   document.querySelectorAll(".nav-item").forEach((item) => {
     item.addEventListener("click", function (e) {
       e.preventDefault();
-      const page = this.getAttribute("data-page");
+      const page = this.dataset.page;
       AppRouter.navigate(page);
       // Close mobile hamburger menu if open
       const navLinks = document.querySelector(".nav-links");
@@ -274,18 +442,30 @@ function initializeApp() {
   });
 
   // Set up search functionality
-  const searchBtn = document.getElementById("search-btn");
-  const searchInput = document.getElementById("search-input");
-
-  if (searchBtn) {
-    searchBtn.addEventListener("click", () => SearchHandler.openSearch());
+  const navSearchBtn = document.querySelector(".search-icon-btn");
+  if (navSearchBtn) {
+    navSearchBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      SearchHandler.toggleNavSearch();
+    });
   }
 
-  if (searchInput) {
-    searchInput.addEventListener("keypress", (e) =>
-      SearchHandler.handleSearchKeyPress(e),
-    );
-  }
+  // Close dropdowns on outside click
+  document.addEventListener("click", (e) => {
+    // Hero search
+    const heroWrap = document.querySelector(".hero-search-wrap");
+    if (heroWrap && !heroWrap.contains(e.target)) {
+      SearchHandler.closeDropdown("hero-search-results");
+    }
+    // Nav search
+    const navWrap = document.getElementById("nav-search-wrap");
+    if (navWrap && !navWrap.contains(e.target)) {
+      navWrap.classList.remove("expanded");
+      SearchHandler.closeDropdown("nav-search-results");
+      const navInput = document.getElementById("nav-search-input");
+      if (navInput) navInput.value = "";
+    }
+  });
 
   // Set up chatbot
   const chatToggle = document.getElementById("chat-toggle");
