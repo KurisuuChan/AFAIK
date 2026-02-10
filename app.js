@@ -3,6 +3,21 @@
  * State management, routing, and initialization
  */
 
+// ===== TAB SWITCHING FOR PROJECT DETAIL =====
+function switchDetailTab(btn, tabId) {
+  // Deactivate all tabs and contents
+  document
+    .querySelectorAll(".detail-tab")
+    .forEach((t) => t.classList.remove("active"));
+  document
+    .querySelectorAll(".detail-tab-content")
+    .forEach((c) => c.classList.remove("active"));
+  // Activate selected
+  btn.classList.add("active");
+  const target = document.getElementById("tab-" + tabId);
+  if (target) target.classList.add("active");
+}
+
 // ===== STATE MANAGEMENT =====
 const AppState = {
   currentPage: "home",

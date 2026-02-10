@@ -358,6 +358,10 @@ const Components = {
     const project = AppData.projects.find((p) => p.id === projectId);
     if (!project) return '<div class="error">Project not found</div>';
 
+    const hasUnits = project.unitTypes && project.unitTypes.length > 0;
+    const hasAmenities = project.amenities && project.amenities.length > 0;
+    const hasAwards = project.awards && project.awards.length > 0;
+
     return `
       <div class="project-detail">
         <!-- Back Button -->
@@ -366,165 +370,172 @@ const Components = {
           <span>Back to Projects</span>
         </button>
 
-        <!-- Project Header -->
+        <!-- Compact Header -->
         <div class="detail-header glass">
           <div class="detail-image" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa);">
-            <img src="${project.image}" alt="${project.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-size: 72px;&quot;>🏢</span>';" />
+            <img src="${project.image}" alt="${project.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-size: 56px;&quot;>🏢</span>';" />
           </div>
           <div class="detail-info">
-            <h1>${project.name}</h1>
-            <span class="type-badge" style="background: ${project.color};">${project.type}</span>
-            <div class="detail-grid">
-              <div class="detail-item">
+            <div class="detail-title-row">
+              <h1>${project.name}</h1>
+              <span class="type-badge" style="background: ${project.color};">${project.type}</span>
+            </div>
+            <p class="detail-desc">${project.fullDescription || project.description}</p>
+            <div class="detail-meta-strip">
+              <div class="meta-chip">
                 ${Icons.mapPin}
-                <div>
-                  <small>Location</small>
-                  <strong>${project.location}</strong>
-                </div>
+                <span>${project.location}</span>
               </div>
               ${
                 project.completion && project.name !== "Filinvest City"
                   ? `
-                <div class="detail-item">
-                  ${Icons.calendar}
-                  <div>
-                    <small>Turnover Date</small>
-                    <strong>${project.completion}</strong>
-                  </div>
-                </div>
-              `
+              <div class="meta-chip">
+                ${Icons.calendar}
+                <span>Turnover: <strong>${project.completion}</strong></span>
+              </div>`
                   : ""
               }
               ${
                 project.units && project.name !== "Filinvest City"
                   ? `
-                <div class="detail-item">
-                  ${Icons.homeSmall}
-                  <div>
-                    <small>Total ${["Fortune Hill", "Golf Ridge", "The Glades"].includes(project.name) ? "Lots" : "Units"}</small>
-                    <strong>${project.units}</strong>
-                  </div>
-                </div>
-              `
+              <div class="meta-chip">
+                ${Icons.homeSmall}
+                <span>${["Fortune Hill", "Golf Ridge", "The Glades"].includes(project.name) ? "Lots" : "Units"}: <strong>${project.units}</strong></span>
+              </div>`
                   : ""
               }
               ${
                 project.status
                   ? `
-                <div class="detail-item">
-                  ${Icons.star}
-                  <div>
-                    <small>Status</small>
-                    <strong class="status-${project.status.toLowerCase()}">${project.status}</strong>
-                  </div>
+              <div class="meta-chip meta-chip-status">
+                ${Icons.star}
+                <span><strong class="status-${project.status.toLowerCase()}">${project.status}</strong></span>
+              </div>`
+                  : ""
+              }
+            </div>
+            ${
+              hasAwards
+                ? `
+            <div class="detail-awards-inline">
+              ${project.awards
+                .map(
+                  (award) => `
+              <div class="award-inline">
+                ${Icons.trophy}
+                <span>${award}</span>
+              </div>`,
+                )
+                .join("")}
+            </div>`
+                : ""
+            }
+          </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="detail-tabs-container glass">
+          <div class="detail-tabs">
+            <button class="detail-tab active" onclick="switchDetailTab(this, 'overview')" data-tab="overview">Overview</button>
+            ${hasUnits ? `<button class="detail-tab" onclick="switchDetailTab(this, 'units')" data-tab="units">Unit Types & Pricing</button>` : ""}
+            ${hasAmenities ? `<button class="detail-tab" onclick="switchDetailTab(this, 'amenities')" data-tab="amenities">Amenities</button>` : ""}
+          </div>
+
+          <!-- Tab: Overview -->
+          <div class="detail-tab-content active" id="tab-overview">
+            <div class="overview-two-col">
+              <div class="overview-col">
+                <h3>Key Features</h3>
+                <div class="features-compact">
+                  ${project.features
+                    .map(
+                      (f) => `
+                  <div class="feature-item-compact">
+                    <div class="feature-dot"></div>
+                    <span>${f}</span>
+                  </div>`,
+                    )
+                    .join("")}
                 </div>
-              `
+              </div>
+              ${
+                hasAmenities
+                  ? `
+              <div class="overview-col">
+                <h3>Highlights</h3>
+                <div class="features-compact">
+                  ${project.amenities
+                    .slice(0, 6)
+                    .map(
+                      (a) => `
+                  <div class="feature-item-compact">
+                    ${Icons.checkCircle}
+                    <span>${a}</span>
+                  </div>`,
+                    )
+                    .join("")}
+                  ${project.amenities.length > 6 ? `<span class="see-more-link" onclick="switchDetailTab(document.querySelector('[data-tab=amenities]'), 'amenities')">+${project.amenities.length - 6} more amenities →</span>` : ""}
+                </div>
+              </div>`
                   : ""
               }
             </div>
           </div>
-        </div>
 
-        <!-- Description Section -->
-        <div class="detail-section glass">
-          <h2>Project Description</h2>
-          <p>${project.fullDescription || project.description}</p>
-          
-          <h3>Key Features</h3>
-          <div class="features-list">
-            ${project.features
-              .map(
-                (f) => `
-              <div class="feature-item">
-                <div class="feature-dot"></div>
-                <span>${f}</span>
-              </div>
-            `,
-              )
-              .join("")}
-          </div>
-        </div>
-
-        <!-- Awards Section -->
-        ${
-          project.awards && project.awards.length > 0
-            ? `
-          <div class="detail-section glass">
-            <h2>Awards & Recognition</h2>
-            <div class="awards-list">
-              ${project.awards
-                .map(
-                  (award) => `
-                <div class="award-item">
-                  ${Icons.trophy}
-                  <span>${award}</span>
-                </div>
-              `,
-                )
-                .join("")}
+          <!-- Tab: Unit Types -->
+          ${
+            hasUnits
+              ? `
+          <div class="detail-tab-content" id="tab-units">
+            <div class="units-table-wrapper">
+              <table class="units-table">
+                <thead>
+                  <tr>
+                    <th>Unit Type</th>
+                    <th>Size</th>
+                    <th>Price Range</th>
+                    <th>Availability</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${project.unitTypes
+                    .map(
+                      (unit) => `
+                  <tr>
+                    <td class="unit-name-cell"><strong>${unit.name}</strong></td>
+                    <td>${unit.size}</td>
+                    <td class="unit-price-cell">${unit.priceRange}</td>
+                    <td><span class="availability-badge availability-${unit.availability.toLowerCase().replace(/\s+/g, "-")}">${unit.availability}</span></td>
+                  </tr>`,
+                    )
+                    .join("")}
+                </tbody>
+              </table>
             </div>
-          </div>
-        `
-            : ""
-        }
+          </div>`
+              : ""
+          }
 
-        <!-- Available Unit Types Section -->
-        ${
-          project.unitTypes && project.unitTypes.length > 0
-            ? `
-          <div class="detail-section glass">
-            <h2>Available Unit Types</h2>
-            <div class="unit-types-grid">
-              ${project.unitTypes
-                .map(
-                  (unit) => `
-                <div class="unit-type-card">
-                  <div class="unit-header">
-                    <h3>${unit.name}</h3>
-                    <span class="availability-badge availability-${unit.availability.toLowerCase().replace(/\s+/g, "-")}">${unit.availability}</span>
-                  </div>
-                  <div class="unit-details">
-                    <div class="unit-detail">
-                      <small>Size</small>
-                      <strong>${unit.size}</strong>
-                    </div>
-                    <div class="unit-detail">
-                      <small>Price Range</small>
-                      <strong>${unit.priceRange}</strong>
-                    </div>
-                  </div>
-                </div>
-              `,
-                )
-                .join("")}
-            </div>
-          </div>
-        `
-            : ""
-        }
-
-        <!-- Amenities Section -->
-        ${
-          project.amenities && project.amenities.length > 0
-            ? `
-          <div class="detail-section glass">
-            <h2>Amenities & Facilities</h2>
-            <div class="amenities-grid">
+          <!-- Tab: Amenities -->
+          ${
+            hasAmenities
+              ? `
+          <div class="detail-tab-content" id="tab-amenities">
+            <div class="amenities-grid-compact">
               ${project.amenities
                 .map(
                   (amenity) => `
-                <div class="amenity-item">
-                  ${Icons.checkCircle}
-                  <span>${amenity}</span>
-                </div>
-              `,
+              <div class="amenity-item-compact">
+                ${Icons.checkCircle}
+                <span>${amenity}</span>
+              </div>`,
                 )
                 .join("")}
             </div>
-          </div>
-        `
-            : ""
-        }
+          </div>`
+              : ""
+          }
+        </div>
       </div>
     `;
   },
