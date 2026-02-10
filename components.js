@@ -1,4 +1,4 @@
-  /**
+/**
  * AFAIK Knowledge Hub - Component Rendering Functions
  * Vanilla JS functions for rendering different page views
  */
@@ -24,7 +24,7 @@ const Components = {
                   <p>Building Dreams, Creating Communities</p>
                 </div>
               </div>
-              <h1 class="hero-title">Welcome to the<br>Filinvest Alabang Inc.</h1>
+              <h1 class="hero-title">Welcome to<br>FAI Knowledge Base</h1>
               <p class="hero-subtitle">Your central resource for projects, insights, and organizational information</p>
               <p class="hero-description">Explore our comprehensive database of property developments, access vital resources, and connect with our team—all in one place.</p>
               
@@ -78,7 +78,10 @@ const Components = {
         <section class="featured-preview">
           <h2 class="section-title">Featured Projects</h2>
           <div class="projects-preview-grid">
-            ${AppData.projects.slice(0, 3).map(project => `
+            ${AppData.projects
+              .slice(0, 3)
+              .map(
+                (project) => `
               <div class="preview-card" onclick="AppRouter.navigate('projects')">
                 <div class="preview-image" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa);">
                   <img src="${project.image}" alt="${project.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-size: 48px;&quot;>🏢</span>';" />
@@ -92,7 +95,9 @@ const Components = {
                   </div>
                 </div>
               </div>
-            `).join('')}
+            `,
+              )
+              .join("")}
           </div>
         </section>
       </div>
@@ -104,7 +109,7 @@ const Components = {
    */
   renderDashboard: () => {
     const completedMissions = AppState.completedMissions || [];
-    
+
     return `
       <div class="dashboard-page">
         <!-- Header -->
@@ -192,10 +197,11 @@ const Components = {
               Key Tasks
             </h3>
             <div class="missions-list">
-              ${AppData.missions.map(mission => {
-                const isCompleted = completedMissions.includes(mission.id);
-                return `
-                  <div class="mission-item ${isCompleted ? 'completed' : ''}" onclick="AppState.toggleMission(${mission.id})">
+              ${AppData.missions
+                .map((mission) => {
+                  const isCompleted = completedMissions.includes(mission.id);
+                  return `
+                  <div class="mission-item ${isCompleted ? "completed" : ""}" onclick="AppState.toggleMission(${mission.id})">
                     <div class="mission-content">
                       ${isCompleted ? Icons.checkCircle : Icons.target}
                       <span>${mission.title}</span>
@@ -203,7 +209,8 @@ const Components = {
                     <span class="mission-xp">${mission.xp} pts</span>
                   </div>
                 `;
-              }).join('')}
+                })
+                .join("")}
             </div>
           </div>
 
@@ -241,34 +248,43 @@ const Components = {
    * Render the Projects page
    */
   renderProjects: () => {
-    const activeCategory = AppState.activeCategory || 'All';
-    const categories = ['All', 'TOWNSHIPS', 'ASPIRE', 'PRESTIGE', 'FILIGREE'];
-    
-    const filteredProjects = activeCategory === 'All' 
-      ? AppData.projects 
-      : AppData.projects.filter(p => p.category === activeCategory);
+    const activeCategory = AppState.activeCategory || "All";
+    const categories = ["All", "TOWNSHIPS", "ASPIRE", "PRESTIGE", "FILIGREE"];
+
+    const filteredProjects =
+      activeCategory === "All"
+        ? AppData.projects
+        : AppData.projects.filter((p) => p.category === activeCategory);
 
     return `
       <div class="projects-page">
         <!-- Category Tabs -->
         <div class="category-tabs glass">
-          ${categories.map(category => {
-            const count = category === 'All' ? AppData.projects.length : AppData.projects.filter(p => p.category === category).length;
-            return `
+          ${categories
+            .map((category) => {
+              const count =
+                category === "All"
+                  ? AppData.projects.length
+                  : AppData.projects.filter((p) => p.category === category)
+                      .length;
+              return `
               <button 
-                class="category-tab ${activeCategory === category ? 'active' : ''}"
+                class="category-tab ${activeCategory === category ? "active" : ""}"
                 onclick="AppState.setCategory('${category}')"
               >
                 <span>${category}</span>
-                ${category !== 'All' ? `<span class="badge-count">${count}</span>` : ''}
+                ${category !== "All" ? `<span class="badge-count">${count}</span>` : ""}
               </button>
             `;
-          }).join('')}
+            })
+            .join("")}
         </div>
 
         <!-- Projects Grid -->
         <div class="projects-grid">
-          ${filteredProjects.map(project => `
+          ${filteredProjects
+            .map(
+              (project) => `
             <div class="project-card glass" onclick="AppState.selectProject(${project.id})">
               <!-- Project Image -->
               <div class="project-image" style="background: linear-gradient(135deg, ${project.color}, ${project.color}aa);">
@@ -285,17 +301,19 @@ const Components = {
                 
                 <div class="project-meta">
                   <span class="project-type">${project.type}</span>
-                  ${project.status ? `<span class="status-badge status-${project.status.toLowerCase()}">${project.status}</span>` : ''}
+                  ${project.status ? `<span class="status-badge status-${project.status.toLowerCase()}">${project.status}</span>` : ""}
                 </div>
 
                 <p class="project-description">${project.description}</p>
 
-                ${project.units && project.name !== 'Filinvest City' ? `
+                ${
+                  project.units && project.name !== "Filinvest City"
+                    ? `
                   <div class="project-stats">
                     <div class="stat-item">
                       ${Icons.homeSmall}
                       <div>
-                        <small>${['Fortune Hill', 'Golf Ridge', 'The Glades'].includes(project.name) ? 'Lots' : 'Units'}</small>
+                        <small>${["Fortune Hill", "Golf Ridge", "The Glades"].includes(project.name) ? "Lots" : "Units"}</small>
                         <strong>${project.units}</strong>
                       </div>
                     </div>
@@ -307,11 +325,16 @@ const Components = {
                       </div>
                     </div>
                   </div>
-                ` : ''}
+                `
+                    : ""
+                }
 
                 <div class="project-features">
-                  ${project.features.slice(0, 2).map(f => `<span class="feature-tag">${f}</span>`).join('')}
-                  ${project.features.length > 2 ? `<span class="feature-tag">+${project.features.length - 2} more</span>` : ''}
+                  ${project.features
+                    .slice(0, 2)
+                    .map((f) => `<span class="feature-tag">${f}</span>`)
+                    .join("")}
+                  ${project.features.length > 2 ? `<span class="feature-tag">+${project.features.length - 2} more</span>` : ""}
                 </div>
 
                 <button class="btn-view-details">
@@ -320,7 +343,9 @@ const Components = {
                 </button>
               </div>
             </div>
-          `).join('')}
+          `,
+            )
+            .join("")}
         </div>
       </div>
     `;
@@ -330,7 +355,7 @@ const Components = {
    * Render Project Detail View
    */
   renderProjectDetail: (projectId) => {
-    const project = AppData.projects.find(p => p.id === projectId);
+    const project = AppData.projects.find((p) => p.id === projectId);
     if (!project) return '<div class="error">Project not found</div>';
 
     return `
@@ -357,7 +382,9 @@ const Components = {
                   <strong>${project.location}</strong>
                 </div>
               </div>
-              ${project.completion && project.name !== 'Filinvest City' ? `
+              ${
+                project.completion && project.name !== "Filinvest City"
+                  ? `
                 <div class="detail-item">
                   ${Icons.calendar}
                   <div>
@@ -365,17 +392,25 @@ const Components = {
                     <strong>${project.completion}</strong>
                   </div>
                 </div>
-              ` : ''}
-              ${project.units && project.name !== 'Filinvest City' ? `
+              `
+                  : ""
+              }
+              ${
+                project.units && project.name !== "Filinvest City"
+                  ? `
                 <div class="detail-item">
                   ${Icons.homeSmall}
                   <div>
-                    <small>Total ${['Fortune Hill', 'Golf Ridge', 'The Glades'].includes(project.name) ? 'Lots' : 'Units'}</small>
+                    <small>Total ${["Fortune Hill", "Golf Ridge", "The Glades"].includes(project.name) ? "Lots" : "Units"}</small>
                     <strong>${project.units}</strong>
                   </div>
                 </div>
-              ` : ''}
-              ${project.status ? `
+              `
+                  : ""
+              }
+              ${
+                project.status
+                  ? `
                 <div class="detail-item">
                   ${Icons.star}
                   <div>
@@ -383,7 +418,9 @@ const Components = {
                     <strong class="status-${project.status.toLowerCase()}">${project.status}</strong>
                   </div>
                 </div>
-              ` : ''}
+              `
+                  : ""
+              }
             </div>
           </div>
         </div>
@@ -395,29 +432,41 @@ const Components = {
           
           <h3>Key Features</h3>
           <div class="features-list">
-            ${project.features.map(f => `
+            ${project.features
+              .map(
+                (f) => `
               <div class="feature-item">
                 <div class="feature-dot"></div>
                 <span>${f}</span>
               </div>
-            `).join('')}
+            `,
+              )
+              .join("")}
           </div>
         </div>
 
         <!-- Amenities Section -->
-        ${project.amenities && project.amenities.length > 0 ? `
+        ${
+          project.amenities && project.amenities.length > 0
+            ? `
           <div class="detail-section glass">
             <h2>Amenities & Facilities</h2>
             <div class="amenities-grid">
-              ${project.amenities.map(amenity => `
+              ${project.amenities
+                .map(
+                  (amenity) => `
                 <div class="amenity-item">
                   ${Icons.checkCircle}
                   <span>${amenity}</span>
                 </div>
-              `).join('')}
+              `,
+                )
+                .join("")}
             </div>
           </div>
-        ` : ''}
+        `
+            : ""
+        }
       </div>
     `;
   },
@@ -428,16 +477,16 @@ const Components = {
   renderOrganization: () => {
     const getInitials = (name) => {
       const parts = name.trim().split(/\s+/);
-      if (parts.length === 0) return '';
+      if (parts.length === 0) return "";
       if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
       return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
     };
 
     const orgByLevel = {
-      0: AppData.organization.filter(p => p.level === 0),
-      1: AppData.organization.filter(p => p.level === 1),
-      2: AppData.organization.filter(p => p.level === 2),
-      3: AppData.organization.filter(p => p.level === 3)
+      0: AppData.organization.filter((p) => p.level === 0),
+      1: AppData.organization.filter((p) => p.level === 1),
+      2: AppData.organization.filter((p) => p.level === 2),
+      3: AppData.organization.filter((p) => p.level === 3),
     };
 
     return `
@@ -452,14 +501,18 @@ const Components = {
           <div class="org-chart">
             <!-- Level 0: Executive Sponsor -->
             <div class="org-level">
-              ${orgByLevel[0].map(person => `
+              ${orgByLevel[0]
+                .map(
+                  (person) => `
                 <div class="org-card">
                   <div class="org-avatar">${getInitials(person.name)}</div>
                   <h3>${person.name}</h3>
                   <p class="org-position">${person.position}</p>
                   <a href="mailto:${person.email}" class="org-email">${person.email}</a>
                 </div>
-              `).join('')}
+              `,
+                )
+                .join("")}
             </div>
 
             <!-- Connecting Line -->
@@ -467,14 +520,18 @@ const Components = {
 
             <!-- Level 1: Department Head -->
             <div class="org-level">
-              ${orgByLevel[1].map(person => `
+              ${orgByLevel[1]
+                .map(
+                  (person) => `
                 <div class="org-card">
                   <div class="org-avatar">${getInitials(person.name)}</div>
                   <h3>${person.name}</h3>
                   <p class="org-position">${person.position}</p>
                   <a href="mailto:${person.email}" class="org-email">${person.email}</a>
                 </div>
-              `).join('')}
+              `,
+                )
+                .join("")}
             </div>
 
             <!-- Connecting Lines to Managers -->
@@ -482,14 +539,18 @@ const Components = {
 
             <!-- Level 2: Managers -->
             <div class="org-level org-level-managers">
-              ${orgByLevel[2].map(person => `
+              ${orgByLevel[2]
+                .map(
+                  (person) => `
                 <div class="org-card">
                   <div class="org-avatar">${getInitials(person.name)}</div>
                   <h3>${person.name}</h3>
                   <p class="org-position">${person.position}</p>
                   <a href="mailto:${person.email}" class="org-email">${person.email}</a>
                 </div>
-              `).join('')}
+              `,
+                )
+                .join("")}
             </div>
 
             <!-- Connecting Lines to Specialists -->
@@ -497,20 +558,28 @@ const Components = {
 
             <!-- Level 3: Specialists -->
             <div class="org-level org-level-specialists">
-              ${orgByLevel[3].map(person => {
-                const reportsToNames = person.reportsTo ? 
-                  person.reportsTo.map(id => AppData.organization.find(p => p.id === id)?.name).filter(Boolean).join(', ') 
-                  : '';
-                return `
+              ${orgByLevel[3]
+                .map((person) => {
+                  const reportsToNames = person.reportsTo
+                    ? person.reportsTo
+                        .map(
+                          (id) =>
+                            AppData.organization.find((p) => p.id === id)?.name,
+                        )
+                        .filter(Boolean)
+                        .join(", ")
+                    : "";
+                  return `
                   <div class="org-card">
                     <div class="org-avatar">${getInitials(person.name)}</div>
                     <h3>${person.name}</h3>
                     <p class="org-position">${person.position}</p>
-                    ${reportsToNames ? `<p class="reports-to">Reports to: ${reportsToNames}</p>` : ''}
+                    ${reportsToNames ? `<p class="reports-to">Reports to: ${reportsToNames}</p>` : ""}
                     <a href="mailto:${person.email}" class="org-email">${person.email}</a>
                   </div>
                 `;
-              }).join('')}
+                })
+                .join("")}
             </div>
           </div>
         </div>
@@ -527,25 +596,25 @@ const Components = {
     // Map resource IDs to appropriate icons
     const getResourceIcon = (id) => {
       const iconMap = {
-        1: Icons.clipboard,        // Building Permit Process
-        2: Icons.fileCheck,        // Development Permit
-        3: Icons.shield,           // License to Sell
-        4: Icons.route,            // Road User Permit
-        5: Icons.clipboardCheck,   // Locator/Tenant Clearance
-        6: Icons.partyPopper,      // Event Permit Form
-        7: Icons.megaphone,        // Filinvest City Event Clearance
-        8: Icons.building,         // Open House Events
-        9: Icons.calendar,         // Event Forms (External)
-        10: Icons.monitor          // ETC Plus
+        1: Icons.clipboard, // Building Permit Process
+        2: Icons.fileCheck, // Development Permit
+        3: Icons.shield, // License to Sell
+        4: Icons.route, // Road User Permit
+        5: Icons.clipboardCheck, // Locator/Tenant Clearance
+        6: Icons.partyPopper, // Event Permit Form
+        7: Icons.megaphone, // Filinvest City Event Clearance
+        8: Icons.building, // Open House Events
+        9: Icons.calendar, // Event Forms (External)
+        10: Icons.monitor, // ETC Plus
       };
       return iconMap[id] || Icons.fileText;
     };
 
     const renderAccordion = (resource, index) => {
       const isActive = activeAccordion === index;
-      const colors = resource.color.split(' ');
+      const colors = resource.color.split(" ");
       return `
-        <div class="accordion-item ${isActive ? 'active' : ''}">
+        <div class="accordion-item ${isActive ? "active" : ""}">
           <div class="accordion-header" onclick="AppState.toggleAccordion(${index})">
             <div class="accordion-title">
               <div class="accordion-icon" style="background: linear-gradient(135deg, ${colors[0]}, ${colors[1]});">
@@ -557,18 +626,26 @@ const Components = {
               ${Icons.chevronDown}
             </div>
           </div>
-          <div class="accordion-content" style="display: ${isActive ? 'block' : 'none'};">
-            ${resource.sections.map(section => `
+          <div class="accordion-content" style="display: ${isActive ? "block" : "none"};">
+            ${resource.sections
+              .map(
+                (section) => `
               <div class="content-section">
                 <h4>${section.title}</h4>
-                ${section.content ? `<p>${section.content}</p>` : ''}
-                ${section.steps ? `
+                ${section.content ? `<p>${section.content}</p>` : ""}
+                ${
+                  section.steps
+                    ? `
                   <ol class="steps-list">
-                    ${section.steps.map(step => `<li>${step}</li>`).join('')}
+                    ${section.steps.map((step) => `<li>${step}</li>`).join("")}
                   </ol>
-                ` : ''}
+                `
+                    : ""
+                }
               </div>
-            `).join('')}
+            `,
+              )
+              .join("")}
           </div>
         </div>
       `;
@@ -580,7 +657,7 @@ const Components = {
         <div class="resources-section glass">
           <h2 class="section-header">Permits Applications</h2>
           <div class="accordion-container">
-            ${AppData.resources.permits.map((resource, index) => renderAccordion(resource, index)).join('')}
+            ${AppData.resources.permits.map((resource, index) => renderAccordion(resource, index)).join("")}
           </div>
         </div>
 
@@ -588,9 +665,14 @@ const Components = {
         <div class="resources-section glass">
           <h2 class="section-header">Events</h2>
           <div class="accordion-container">
-            ${AppData.resources.events.map((resource, index) => 
-              renderAccordion(resource, index + AppData.resources.permits.length)
-            ).join('')}
+            ${AppData.resources.events
+              .map((resource, index) =>
+                renderAccordion(
+                  resource,
+                  index + AppData.resources.permits.length,
+                ),
+              )
+              .join("")}
           </div>
         </div>
 
@@ -598,9 +680,16 @@ const Components = {
         <div class="resources-section glass">
           <h2 class="section-header">Digital Tools</h2>
           <div class="accordion-container">
-            ${AppData.resources.digitalTools.map((resource, index) => 
-              renderAccordion(resource, index + AppData.resources.permits.length + AppData.resources.events.length)
-            ).join('')}
+            ${AppData.resources.digitalTools
+              .map((resource, index) =>
+                renderAccordion(
+                  resource,
+                  index +
+                    AppData.resources.permits.length +
+                    AppData.resources.events.length,
+                ),
+              )
+              .join("")}
           </div>
         </div>
       </div>
@@ -614,12 +703,12 @@ const Components = {
     // Map link IDs to appropriate icons
     const getLinkIcon = (id) => {
       const iconMap = {
-        'etc-plus': Icons.calculator,      // ETC Plus
-        'sapphire-ims': Icons.database,    // Sapphire IMS
-        'darwinbox': Icons.users,          // Darwinbox HR
-        'ramco': Icons.briefcase,          // Ramco
-        'ourlink': Icons.layers,           // OurLink
-        'smartsheet-form': Icons.formInput // PR Form
+        "etc-plus": Icons.calculator, // ETC Plus
+        "sapphire-ims": Icons.database, // Sapphire IMS
+        darwinbox: Icons.users, // Darwinbox HR
+        ramco: Icons.briefcase, // Ramco
+        ourlink: Icons.layers, // OurLink
+        "smartsheet-form": Icons.formInput, // PR Form
       };
       return iconMap[id] || Icons.link;
     };
@@ -633,9 +722,10 @@ const Components = {
           </div>
 
           <div class="links-grid">
-            ${AppData.links.map(link => {
-              const colors = link.color.split(' ');
-              return `
+            ${AppData.links
+              .map((link) => {
+                const colors = link.color.split(" ");
+                return `
               <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="link-card">
                 <div class="link-icon" style="background: linear-gradient(135deg, ${colors[0]}, ${colors[1]});">
                   ${getLinkIcon(link.id)}
@@ -650,7 +740,8 @@ const Components = {
                 </div>
               </a>
               `;
-            }).join('')}
+              })
+              .join("")}
           </div>
         </div>
       </div>
@@ -684,5 +775,5 @@ const Components = {
         </div>
       </div>
     `;
-  }
+  },
 };

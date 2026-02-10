@@ -13,14 +13,31 @@ const AppData = {
       location: "Filinvest City, Alabang, Muntinlupa City, Metro Manila",
       type: "FILIGREE",
       status: "Pre-selling",
-      description: "Modern twin-tower residential development with premium amenities",
-      fullDescription: "1001 Parkway Residences is an upscale, two-tower residential development by Filigree, located in Filinvest City, Alabang. It is recognized as the 'Metro South's Iconic Garden Towers' and is set to become the tallest residential building in Filinvest City.",
+      description:
+        "Modern twin-tower residential development with premium amenities",
+      fullDescription:
+        "1001 Parkway Residences is an upscale, two-tower residential development by Filigree, located in Filinvest City, Alabang. It is recognized as the 'Metro South's Iconic Garden Towers' and is set to become the tallest residential building in Filinvest City.",
       features: ["Swimming Pool", "Gym", "Function Hall", "Landscaped Gardens"],
-      amenities: ["Driveway", "Drop-off", "Pavilion", "Adult Pool with 50-meter lap section", "Kiddie Pool", "Outdoor Kids Play Area", "Indoor Kids Play Area", "Lobby Lounge", "Main Lobby", "Gym & Yoga", "Dog Park", "Pool Lounge", "Sky Lounge (Tower 1 41st Floor)"],
-      image: "https://th.bing.com/th/id/OIP.-EQkoYVmKthMf-ZE1hy8fwHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+      amenities: [
+        "Driveway",
+        "Drop-off",
+        "Pavilion",
+        "Adult Pool with 50-meter lap section",
+        "Kiddie Pool",
+        "Outdoor Kids Play Area",
+        "Indoor Kids Play Area",
+        "Lobby Lounge",
+        "Main Lobby",
+        "Gym & Yoga",
+        "Dog Park",
+        "Pool Lounge",
+        "Sky Lounge (Tower 1 41st Floor)",
+      ],
+      image:
+        "https://th.bing.com/th/id/OIP.-EQkoYVmKthMf-ZE1hy8fwHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
       color: "#2563eb",
       units: "764",
-      completion: "2028"
+      completion: "2028",
     },
     {
       id: 2,
@@ -29,14 +46,29 @@ const AppData = {
       location: "Alabang, Muntinlupa City, Metro Manila",
       type: "ASPIRE",
       status: "RFO",
-      description: "Affordable studio living for young professionals and students",
-      fullDescription: "Studio City offers contemporary studio living designed specifically for young professionals, students, and investors. Located in the heart of Alabang, it provides unmatched connectivity to business districts, shopping centers, and transport hubs.",
-      features: ["Study Areas", "Co-working Spaces", "Retail Shops", "Transport Hub"],
-      amenities: ["Study Areas", "Co-working Spaces", "Retail Shops", "Transport Hub", "24/7 Security", "Fitness Center"],
-      image: "https://tse2.mm.bing.net/th/id/OIP.7HRXbHhiV5KthLtPp-5GsQHaFA?rs=1&pid=ImgDetMain&o=7&rm=3",
+      description:
+        "Affordable studio living for young professionals and students",
+      fullDescription:
+        "Studio City offers contemporary studio living designed specifically for young professionals, students, and investors. Located in the heart of Alabang, it provides unmatched connectivity to business districts, shopping centers, and transport hubs.",
+      features: [
+        "Study Areas",
+        "Co-working Spaces",
+        "Retail Shops",
+        "Transport Hub",
+      ],
+      amenities: [
+        "Study Areas",
+        "Co-working Spaces",
+        "Retail Shops",
+        "Transport Hub",
+        "24/7 Security",
+        "Fitness Center",
+      ],
+      image:
+        "https://tse2.mm.bing.net/th/id/OIP.7HRXbHhiV5KthLtPp-5GsQHaFA?rs=1&pid=ImgDetMain&o=7&rm=3",
       color: "#11998e",
       units: "2,162",
-      completion: "2021"
+      completion: "2021",
     },
     {
       id: 3,
@@ -46,13 +78,27 @@ const AppData = {
       type: "ASPIRE",
       status: "RFO",
       description: "Elevated living with panoramic city and nature views",
-      fullDescription: "The Levels offers elevated residential living with stunning panoramic views of both the cityscape and surrounding nature. Designed for modern urban professionals seeking quality and convenience.",
-      features: ["Sky Garden", "Infinity Pool", "Business Center", "Shuttle Service"],
-      amenities: ["Sky Garden", "Infinity Pool", "Business Center", "Shuttle Service", "Function Rooms", "Children's Playground"],
-      image: "https://images.myproperties.ph/uploads/gallery/the-levels-featured-image.jpg",
+      fullDescription:
+        "The Levels offers elevated residential living with stunning panoramic views of both the cityscape and surrounding nature. Designed for modern urban professionals seeking quality and convenience.",
+      features: [
+        "Sky Garden",
+        "Infinity Pool",
+        "Business Center",
+        "Shuttle Service",
+      ],
+      amenities: [
+        "Sky Garden",
+        "Infinity Pool",
+        "Business Center",
+        "Shuttle Service",
+        "Function Rooms",
+        "Children's Playground",
+      ],
+      image:
+        "https://images.myproperties.ph/uploads/gallery/the-levels-featured-image.jpg",
       color: "#7c3aed",
       units: "783",
-      completion: "2024"
+      completion: "2024",
     },
     {
       id: 4,
@@ -62,13 +108,27 @@ const AppData = {
       type: "PRESTIGE",
       status: "RFO",
       description: "Ultra-luxury living with signature amenities and services",
-      fullDescription: "The Signature represents the pinnacle of luxury residential living, offering world-class amenities and personalized services that cater to the most discerning homeowners.",
-      features: ["Concierge Service", "Private Dining", "Wine Cellar", "Valet Parking"],
-      amenities: ["Concierge Service", "Private Dining", "Wine Cellar", "Valet Parking", "Spa & Wellness Center", "Private Cinema"],
-      image: "https://tse4.mm.bing.net/th/id/OIP.hc4dY20PDiYm9Gwf3DToywHaGa?rs=1&pid=ImgDetMain&o=7&rm=3",
+      fullDescription:
+        "The Signature represents the pinnacle of luxury residential living, offering world-class amenities and personalized services that cater to the most discerning homeowners.",
+      features: [
+        "Concierge Service",
+        "Private Dining",
+        "Wine Cellar",
+        "Valet Parking",
+      ],
+      amenities: [
+        "Concierge Service",
+        "Private Dining",
+        "Wine Cellar",
+        "Valet Parking",
+        "Spa & Wellness Center",
+        "Private Cinema",
+      ],
+      image:
+        "https://tse4.mm.bing.net/th/id/OIP.hc4dY20PDiYm9Gwf3DToywHaGa?rs=1&pid=ImgDetMain&o=7&rm=3",
       color: "#d97706",
       units: "125",
-      completion: "2023"
+      completion: "2023",
     },
     {
       id: 5,
@@ -78,13 +138,27 @@ const AppData = {
       type: "PRESTIGE",
       status: "RFO",
       description: "Premium hillside community with scenic mountain views",
-      fullDescription: "Fortune Hills is an exclusive hillside residential community offering breathtaking mountain views, premium amenities, and a serene environment perfect for families seeking privacy and prestige.",
-      features: ["Golf Course", "Country Club", "Hiking Trails", "Exclusive Village"],
-      amenities: ["Golf Course", "Country Club", "Hiking Trails", "Exclusive Village", "24/7 Security", "Clubhouse"],
-      image: "https://filinvest.com/storage/imageable/content/95c8f422f9c3308d391cbcefae21d5ad/Fortune-Hill-Facade-1-original.jpg",
+      fullDescription:
+        "Fortune Hills is an exclusive hillside residential community offering breathtaking mountain views, premium amenities, and a serene environment perfect for families seeking privacy and prestige.",
+      features: [
+        "Golf Course",
+        "Country Club",
+        "Hiking Trails",
+        "Exclusive Village",
+      ],
+      amenities: [
+        "Golf Course",
+        "Country Club",
+        "Hiking Trails",
+        "Exclusive Village",
+        "24/7 Security",
+        "Clubhouse",
+      ],
+      image:
+        "https://filinvest.com/storage/imageable/content/95c8f422f9c3308d391cbcefae21d5ad/Fortune-Hill-Facade-1-original.jpg",
       color: "#16a34a",
       units: "92",
-      completion: "2024"
+      completion: "2024",
     },
     {
       id: 6,
@@ -93,13 +167,27 @@ const AppData = {
       location: "Alabang, Muntinlupa City, Metro Manila",
       type: "TOWNSHIPS",
       description: "Complete live-work-play township development",
-      fullDescription: "Filinvest City is a master-planned township that seamlessly integrates residential, commercial, and lifestyle destinations. It's a complete community where you can live, work, learn, shop, and play.",
-      features: ["Business District", "Shopping Centers", "Schools", "Hospitals"],
-      amenities: ["Business District", "Shopping Centers", "Top Schools", "World-Class Hospitals", "Parks & Recreation", "Transportation Hub"],
-      image: "https://media.philstar.com/images/articles/filinvest-city-alabang-1_2018-04-05_16-26-41.jpg",
+      fullDescription:
+        "Filinvest City is a master-planned township that seamlessly integrates residential, commercial, and lifestyle destinations. It's a complete community where you can live, work, learn, shop, and play.",
+      features: [
+        "Business District",
+        "Shopping Centers",
+        "Schools",
+        "Hospitals",
+      ],
+      amenities: [
+        "Business District",
+        "Shopping Centers",
+        "Top Schools",
+        "World-Class Hospitals",
+        "Parks & Recreation",
+        "Transportation Hub",
+      ],
+      image:
+        "https://media.philstar.com/images/articles/filinvest-city-alabang-1_2018-04-05_16-26-41.jpg",
       color: "#003d5c",
       units: "5,000+",
-      completion: "Ongoing"
+      completion: "Ongoing",
     },
     {
       id: 7,
@@ -109,13 +197,27 @@ const AppData = {
       type: "FILIGREE",
       status: "RFO",
       description: "Nature-inspired living with extensive green spaces",
-      fullDescription: "Botanika Nature Residences brings nature into urban living with its extensive botanical gardens, eco-friendly design, and wellness-focused amenities.",
-      features: ["Botanical Gardens", "Tree Houses", "Meditation Areas", "Eco-friendly Design"],
-      amenities: ["Botanical Gardens", "Tree Houses", "Meditation Areas", "Eco-friendly Design", "Yoga Deck", "Organic Garden"],
-      image: "https://moveinthecity.ph/wp-content/uploads/2021/04/act_33149.jpg",
+      fullDescription:
+        "Botanika Nature Residences brings nature into urban living with its extensive botanical gardens, eco-friendly design, and wellness-focused amenities.",
+      features: [
+        "Botanical Gardens",
+        "Tree Houses",
+        "Meditation Areas",
+        "Eco-friendly Design",
+      ],
+      amenities: [
+        "Botanical Gardens",
+        "Tree Houses",
+        "Meditation Areas",
+        "Eco-friendly Design",
+        "Yoga Deck",
+        "Organic Garden",
+      ],
+      image:
+        "https://moveinthecity.ph/wp-content/uploads/2021/04/act_33149.jpg",
       color: "#059669",
       units: "101",
-      completion: "2024"
+      completion: "2024",
     },
     {
       id: 8,
@@ -123,15 +225,24 @@ const AppData = {
       category: "FILIGREE",
       location: "Filinvest Mimosa Plus, Pampanga",
       type: "FILIGREE",
-      status: "RFO",
+      status: "Pre-selling",
       description: "Exclusive hillside village with panoramic views",
-      fullDescription: "Golf Ridge offers exclusive hillside lots with panoramic views of the surrounding mountains and golf course. An ideal location for those seeking a premium vacation home or retirement haven.",
+      fullDescription:
+        "Golf Ridge offers exclusive hillside lots with panoramic views of the surrounding mountains and golf course. An ideal location for those seeking a premium vacation home or retirement haven.",
       features: ["Mountain Views", "Private Roads", "Security", "Club House"],
-      amenities: ["Mountain Views", "Private Roads", "24/7 Security", "Club House", "Golf Course Access", "Nature Trails"],
-      image: "https://www.preselling.com.ph/wp-content/uploads/2020/06/Golf-Ridge-Clark-Condo-By-Filinvest.jpg",
+      amenities: [
+        "Mountain Views",
+        "Private Roads",
+        "24/7 Security",
+        "Club House",
+        "Golf Course Access",
+        "Nature Trails",
+      ],
+      image:
+        "https://www.preselling.com.ph/wp-content/uploads/2020/06/Golf-Ridge-Clark-Condo-By-Filinvest.jpg",
       color: "#ca8a04",
       units: "212",
-      completion: "2022"
+      completion: "2027",
     },
     {
       id: 9,
@@ -140,14 +251,29 @@ const AppData = {
       location: "Alabang, Muntinlupa City, Metro Manila",
       type: "ASPIRE",
       status: "RFO",
-      description: "Contemporary studio units located in the heart of Alabang, offering easy access to business districts, lifestyle hubs, and major transport routes—ideal for young professionals, students, or investors.",
-      fullDescription: "Studio N presents contemporary studio units strategically located in Alabang's prime area. Perfect for young professionals, students, and investors looking for accessibility and modern urban living.",
-      features: ["Business Districts", "Shopping Malls", "Cafés & Restaurants", "Fitness & Lifestyle Centers"],
-      amenities: ["Business District Access", "Shopping Malls", "Cafés & Restaurants", "Fitness Centers", "Transport Hub", "Co-working Spaces"],
-      image: "https://tse3.mm.bing.net/th/id/OIP.w6A1BQ3c3P4EkRfYCadjkAHaH1?rs=1&pid=ImgDetMain&o=7&rm=3",
+      description:
+        "Contemporary studio units located in the heart of Alabang, offering easy access to business districts, lifestyle hubs, and major transport routes—ideal for young professionals, students, or investors.",
+      fullDescription:
+        "Studio N presents contemporary studio units strategically located in Alabang's prime area. Perfect for young professionals, students, and investors looking for accessibility and modern urban living.",
+      features: [
+        "Business Districts",
+        "Shopping Malls",
+        "Cafés & Restaurants",
+        "Fitness & Lifestyle Centers",
+      ],
+      amenities: [
+        "Business District Access",
+        "Shopping Malls",
+        "Cafés & Restaurants",
+        "Fitness Centers",
+        "Transport Hub",
+        "Co-working Spaces",
+      ],
+      image:
+        "https://tse3.mm.bing.net/th/id/OIP.w6A1BQ3c3P4EkRfYCadjkAHaH1?rs=1&pid=ImgDetMain&o=7&rm=3",
       color: "#8b5cf6",
       units: "918",
-      completion: "2024"
+      completion: "2024",
     },
     {
       id: 10,
@@ -156,15 +282,30 @@ const AppData = {
       location: "Timberland Heights, San Mateo, Rizal",
       type: "PRESTIGE",
       status: "RFO",
-      description: "The Glades is a peaceful residential community within Timberland Heights, offering a serene forest setting with elevated views. Designed for those who want a balance of nature, comfort, and accessibility—just minutes away from city conveniences.",
-      fullDescription: "The Glades offers a unique blend of mountain resort living and urban convenience. Nestled within Timberland Heights' cool climate and lush forest setting, it provides the perfect escape while remaining accessible to Metro Manila.",
-      features: ["Forest & Mountain Views", "Walking & Nature Trails", "Clubhouse & Leisure Areas", "24/7 Security"],
-      amenities: ["Forest & Mountain Views", "Walking & Nature Trails", "Clubhouse", "Leisure Areas", "24/7 Security", "Cool Climate"],
-      image: "https://tse4.mm.bing.net/th/id/OIP.qj3Oosgdlns4O35EY6qVegHaCH?rs=1&pid=ImgDetMain&o=7&rm=3",
+      description:
+        "The Glades is a peaceful residential community within Timberland Heights, offering a serene forest setting with elevated views. Designed for those who want a balance of nature, comfort, and accessibility—just minutes away from city conveniences.",
+      fullDescription:
+        "The Glades offers a unique blend of mountain resort living and urban convenience. Nestled within Timberland Heights' cool climate and lush forest setting, it provides the perfect escape while remaining accessible to Metro Manila.",
+      features: [
+        "Forest & Mountain Views",
+        "Walking & Nature Trails",
+        "Clubhouse & Leisure Areas",
+        "24/7 Security",
+      ],
+      amenities: [
+        "Forest & Mountain Views",
+        "Walking & Nature Trails",
+        "Clubhouse",
+        "Leisure Areas",
+        "24/7 Security",
+        "Cool Climate",
+      ],
+      image:
+        "https://tse4.mm.bing.net/th/id/OIP.qj3Oosgdlns4O35EY6qVegHaCH?rs=1&pid=ImgDetMain&o=7&rm=3",
       color: "#10b981",
       units: "287",
-      completion: "2024"
-    }
+      completion: "2024",
+    },
   ],
 
   // ===== ORGANIZATION DATA =====
@@ -174,42 +315,44 @@ const AppData = {
       name: "Daphne Mae Odra-Sanchez",
       position: "Senior Vice President - Residentials and Estates",
       email: "daphne.odra-sanchez@filinvestcity.com",
-      level: 0
+      level: 0,
     },
     {
       id: 1,
       name: "Patricia Ann S. Porto",
       position: "Business Intelligence Head • PD — Business Intelligence",
       email: "patricia.porto@filinvestcity.com",
-      level: 1
+      level: 1,
     },
     {
       id: 2,
       name: "Hannah Priscilla A. Literal",
-      position: "Data Analytics & Business Process Manager • Data Analytics & Business Process",
+      position:
+        "Data Analytics & Business Process Manager • Data Analytics & Business Process",
       email: "hannah.literal@filinvestcity.com",
-      level: 2
+      level: 2,
     },
     {
       id: 3,
       name: "John Louie D. Dichoso",
       position: "Tech Business Partner • IT Business Solutions & Tech Support",
       email: "john.dichoso@filinvestcity.com",
-      level: 2
+      level: 2,
     },
     {
       id: 4,
       name: "Stephanie Jes M. Ilmedo",
-      position: "Project Development Manager • Project Development - Strategic Planning",
+      position:
+        "Project Development Manager • Project Development - Strategic Planning",
       email: "stephanie.ilmedo@filinvestcity.com",
-      level: 2
+      level: 2,
     },
     {
       id: 5,
       name: "Anna P. Danganan",
       position: "Project Development Manager • PD - Priming and Innovation",
       email: "anna.danganan@filinvestcity.com",
-      level: 2
+      level: 2,
     },
     {
       id: 6,
@@ -217,7 +360,7 @@ const AppData = {
       position: "Data Analytics Specialist • Data Analytics & Business Process",
       email: "kirk.ranches@filinvestcity.com",
       level: 3,
-      reportsTo: [2]
+      reportsTo: [2],
     },
     {
       id: 7,
@@ -225,8 +368,8 @@ const AppData = {
       position: "Project Development Specialist • PD - Filigree",
       email: "kenneth.declaro@filinvestcity.com",
       level: 3,
-      reportsTo: [5]
-    }
+      reportsTo: [5],
+    },
   ],
 
   // ===== DASHBOARD MISSIONS =====
@@ -235,20 +378,20 @@ const AppData = {
       id: 1,
       title: "Review Property Sales Analytics",
       xp: 45,
-      description: "Analyze Q1 2026 sales performance data"
+      description: "Analyze Q1 2026 sales performance data",
     },
     {
       id: 2,
       title: "Update Filinvest City Dashboard",
       xp: 40,
-      description: "Refresh township development metrics"
+      description: "Refresh township development metrics",
     },
     {
       id: 3,
       title: "Validate Market Research Data",
       xp: 50,
-      description: "Quality check latest market analysis reports"
-    }
+      description: "Quality check latest market analysis reports",
+    },
   ],
 
   // ===== QUICK LINKS =====
@@ -258,43 +401,43 @@ const AppData = {
       name: "ETC Plus",
       url: "https://easycompute.filinvest.com.ph",
       description: "Easy to Compute Plus portal",
-      color: "#06b6d4 #0891b2"
+      color: "#06b6d4 #0891b2",
     },
     {
       id: "sapphire-ims",
       name: "Sapphire IMS",
       url: "https://sms.filinvest.com.ph",
       description: "Sapphire IMS system",
-      color: "#6366f1 #4f46e5"
+      color: "#6366f1 #4f46e5",
     },
     {
       id: "darwinbox",
       name: "Darwinbox",
       url: "https://filinvest.darwinbox.com",
       description: "HR platform",
-      color: "#3b82f6 #2563eb"
+      color: "#3b82f6 #2563eb",
     },
     {
       id: "ramco",
       name: "Ramco",
-      url: "https://ourlink.filinvest.com.ph",
+      url: "https://ourlink.filinvest.com.ph/rvw/hub/index.html?_dc=1770271077598",
       description: "OurLink (Ramco)",
-      color: "#10b981 #059669"
+      color: "#10b981 #059669",
     },
     {
       id: "ourlink",
       name: "OurLink",
       url: "https://ourlinklitev2.filinvest.com.ph/Identity/Account/Login?ReturnUrl=%2F",
       description: "OurLink Lite login",
-      color: "#64748b #475569"
+      color: "#64748b #475569",
     },
     {
       id: "smartsheet-form",
       name: "PR Form",
       url: "https://app.smartsheet.com/b/form/272739879d374912a9f50d116cb1c923",
       description: "Smartsheet request form",
-      color: "#f97316 #ea580c"
-    }
+      color: "#f97316 #ea580c",
+    },
   ],
 
   // ===== RESOURCES DATA =====
@@ -307,7 +450,8 @@ const AppData = {
         sections: [
           {
             title: "WHAT IS THIS?",
-            content: "A building permit is required before starting any construction, renovation, or structural modification. This ensures compliance with local building codes and safety standards."
+            content:
+              "A building permit is required before starting any construction, renovation, or structural modification. This ensures compliance with local building codes and safety standards.",
           },
           {
             title: "HOW TO APPLY",
@@ -317,14 +461,15 @@ const AppData = {
               "Submit application form with complete requirements",
               "Pay assessment fees at the cashier",
               "Wait for evaluation (5-7 business days)",
-              "Receive permit or revision notes"
-            ]
+              "Receive permit or revision notes",
+            ],
           },
           {
             title: "REQUIRED DOCUMENTS",
-            content: "• Application form\n• Land title or proof of ownership\n• Tax declaration\n• Building plans (5 sets)\n• Structural plans\n• Environmental compliance certificate"
-          }
-        ]
+            content:
+              "• Application form\n• Land title or proof of ownership\n• Tax declaration\n• Building plans (5 sets)\n• Structural plans\n• Environmental compliance certificate",
+          },
+        ],
       },
       {
         id: 2,
@@ -333,7 +478,8 @@ const AppData = {
         sections: [
           {
             title: "WHAT IS THIS?",
-            content: "A development permit allows you to subdivide land, develop infrastructure, and prepare lots for construction projects."
+            content:
+              "A development permit allows you to subdivide land, develop infrastructure, and prepare lots for construction projects.",
           },
           {
             title: "STEP-BY-STEP GUIDE",
@@ -342,10 +488,10 @@ const AppData = {
               "Secure environmental clearance",
               "Obtain HLURB/DHSUD approval",
               "Pay development fees",
-              "Receive permit to develop"
-            ]
-          }
-        ]
+              "Receive permit to develop",
+            ],
+          },
+        ],
       },
       {
         id: 3,
@@ -354,7 +500,8 @@ const AppData = {
         sections: [
           {
             title: "OVERVIEW",
-            content: "Required before marketing any real estate project. This protects buyers and ensures all legal requirements are met."
+            content:
+              "Required before marketing any real estate project. This protects buyers and ensures all legal requirements are met.",
           },
           {
             title: "APPLICATION PROCESS",
@@ -363,10 +510,10 @@ const AppData = {
               "Prepare marketing materials for review",
               "Submit application to DHSUD",
               "Wait for evaluation (15-30 days)",
-              "Receive license and commence sales"
-            ]
-          }
-        ]
+              "Receive license and commence sales",
+            ],
+          },
+        ],
       },
       {
         id: 4,
@@ -375,15 +522,16 @@ const AppData = {
         sections: [
           {
             title: "PURPOSE",
-            content: "Required when an activity involves temporary use of roads, such as closures, traffic rerouting, loading/unloading, or use of road space within Filinvest City."
+            content:
+              "Required when an activity involves temporary use of roads, such as closures, traffic rerouting, loading/unloading, or use of road space within Filinvest City.",
           },
           {
             title: "HOW TO GET",
             steps: [
               "Secure the application from Filinvest City Management Office or Engineering / Traffic Management Office",
               "Submit the completed form at least 7–14 days before the event or activity",
-              "Subject to review and approval by traffic and safety teams"
-            ]
+              "Subject to review and approval by traffic and safety teams",
+            ],
           },
           {
             title: "COMMON REQUIREMENTS",
@@ -393,10 +541,10 @@ const AppData = {
               "Site map / layout showing affected roads",
               "Traffic management plan (if applicable)",
               "Valid ID of requester / company representative",
-              "Endorsement from property owner or tenant (if applicable)"
-            ]
-          }
-        ]
+              "Endorsement from property owner or tenant (if applicable)",
+            ],
+          },
+        ],
       },
       {
         id: 5,
@@ -405,14 +553,15 @@ const AppData = {
         sections: [
           {
             title: "PURPOSE",
-            content: "Confirms that the tenant or locator has no outstanding obligations and accepts accountability related to the activity or event."
+            content:
+              "Confirms that the tenant or locator has no outstanding obligations and accepts accountability related to the activity or event.",
           },
           {
             title: "HOW TO GET",
             steps: [
               "Request the form from Property Management / Leasing Office",
-              "Must be signed by the authorized tenant representative"
-            ]
+              "Must be signed by the authorized tenant representative",
+            ],
           },
           {
             title: "COMMON REQUIREMENTS",
@@ -420,10 +569,10 @@ const AppData = {
               "Fully accomplished clearance & release form",
               "Authorized signatory details",
               "Copy of valid government ID",
-              "Proof of tenant status (Lease Agreement or Tenant Certificate, if required)"
-            ]
-          }
-        ]
+              "Proof of tenant status (Lease Agreement or Tenant Certificate, if required)",
+            ],
+          },
+        ],
       },
       {
         id: 6,
@@ -432,14 +581,15 @@ const AppData = {
         sections: [
           {
             title: "PURPOSE",
-            content: "Official approval to conduct an event, activation, or gathering within Filinvest City premises."
+            content:
+              "Official approval to conduct an event, activation, or gathering within Filinvest City premises.",
           },
           {
             title: "HOW TO GET",
             steps: [
               "Obtain the Event Permit Form from Filinvest City Events or Estate Management Office",
-              "Submit the application at least 2–3 weeks before the event"
-            ]
+              "Submit the application at least 2–3 weeks before the event",
+            ],
           },
           {
             title: "COMMON REQUIREMENTS",
@@ -450,10 +600,10 @@ const AppData = {
               "Sound system details (if applicable)",
               "Safety and security plan",
               "Copy of IDs of organizer / company",
-              "Proof of insurance or waiver (if required)"
-            ]
-          }
-        ]
+              "Proof of insurance or waiver (if required)",
+            ],
+          },
+        ],
       },
       {
         id: 7,
@@ -462,14 +612,15 @@ const AppData = {
         sections: [
           {
             title: "PURPOSE",
-            content: "Final clearance confirming that all departments (security, engineering, traffic, estate management) have reviewed and approved the event."
+            content:
+              "Final clearance confirming that all departments (security, engineering, traffic, estate management) have reviewed and approved the event.",
           },
           {
             title: "HOW TO GET",
             steps: [
               "Issued after submission and approval of all related permits and clearances",
-              "Coordinated through the Filinvest City Events / Estate Management Office"
-            ]
+              "Coordinated through the Filinvest City Events / Estate Management Office",
+            ],
           },
           {
             title: "COMMON REQUIREMENTS",
@@ -478,19 +629,19 @@ const AppData = {
               "Approved Road User Permit (if applicable)",
               "Tenant Accountability Clearance & Release Form",
               "Proof of payment of fees (if any)",
-              "Final event layout and schedule"
-            ]
+              "Final event layout and schedule",
+            ],
           },
           {
             title: "IMPORTANT NOTES",
             steps: [
               "Processing time may vary depending on event size and road impact",
               "Incomplete documents may delay approval",
-              "Early coordination with Filinvest City Management is highly recommended"
-            ]
-          }
-        ]
-      }
+              "Early coordination with Filinvest City Management is highly recommended",
+            ],
+          },
+        ],
+      },
     ],
     events: [
       {
@@ -500,7 +651,8 @@ const AppData = {
         sections: [
           {
             title: "EVENT GUIDELINES",
-            content: "Open house events showcase properties to potential buyers. Follow these guidelines to ensure successful events."
+            content:
+              "Open house events showcase properties to potential buyers. Follow these guidelines to ensure successful events.",
           },
           {
             title: "PLANNING CHECKLIST",
@@ -509,10 +661,10 @@ const AppData = {
               "Prepare marketing materials and signages",
               "Coordinate with sales team and property staff",
               "Set up registration desk and refreshments",
-              "Conduct post-event evaluation"
-            ]
-          }
-        ]
+              "Conduct post-event evaluation",
+            ],
+          },
+        ],
       },
       {
         id: 9,
@@ -528,11 +680,11 @@ const AppData = {
               "LGU Permit",
               "Sponsorship Values",
               "Breakdown & Computation of Mileage",
-              "Total # of Participants"
-            ]
-          }
-        ]
-      }
+              "Total # of Participants",
+            ],
+          },
+        ],
+      },
     ],
     digitalTools: [
       {
@@ -542,7 +694,8 @@ const AppData = {
         sections: [
           {
             title: "WHAT IS THIS?",
-            content: "ETC Plus (Easy to Compute Plus) is an online web portal that allows sellers to submit special computation requests directly through the platform."
+            content:
+              "ETC Plus (Easy to Compute Plus) is an online web portal that allows sellers to submit special computation requests directly through the platform.",
           },
           {
             title: "HOW IT WORKS",
@@ -550,15 +703,16 @@ const AppData = {
             steps: [
               "Seller submits a special computation request via ETC Plus",
               "Request is immediately routed and made available to the appropriate Product Development (PD) teams",
-              "PD reviews and processes the request with better visibility and less back-and-forth"
-            ]
+              "PD reviews and processes the request with better visibility and less back-and-forth",
+            ],
           },
           {
             title: "WHY USE ETC PLUS",
-            content: "Faster processing, clearer status visibility, and reduced manual follow-ups between sellers and PD."
-          }
-        ]
-      }
-    ]
-  }
+            content:
+              "Faster processing, clearer status visibility, and reduced manual follow-ups between sellers and PD.",
+          },
+        ],
+      },
+    ],
+  },
 };
