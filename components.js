@@ -445,6 +445,29 @@ const Components = {
           </div>
         </div>
 
+        <!-- Awards Section -->
+        ${
+          project.awards && project.awards.length > 0
+            ? `
+          <div class="detail-section glass">
+            <h2>Awards & Recognition</h2>
+            <div class="awards-list">
+              ${project.awards
+                .map(
+                  (award) => `
+                <div class="award-item">
+                  ${Icons.trophy}
+                  <span>${award}</span>
+                </div>
+              `,
+                )
+                .join("")}
+            </div>
+          </div>
+        `
+            : ""
+        }
+
         <!-- Amenities Section -->
         ${
           project.amenities && project.amenities.length > 0

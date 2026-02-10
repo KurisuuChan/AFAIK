@@ -17,6 +17,9 @@ const AppData = {
         "Modern twin-tower residential development with premium amenities",
       fullDescription:
         "1001 Parkway Residences is an upscale, two-tower residential development by Filigree, located in Filinvest City, Alabang. It is recognized as the 'Metro South's Iconic Garden Towers' and is set to become the tallest residential building in Filinvest City.",
+      awards: [
+        "High-Rise Architecture in the Philippines at the 2024–2025 Asia Pacific Property Awards",
+      ],
       features: ["Swimming Pool", "Gym", "Function Hall", "Landscaped Gardens"],
       amenities: [
         "Driveway",
